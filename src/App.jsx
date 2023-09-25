@@ -1,35 +1,45 @@
+/* eslint-disable no-unused-vars */
+import React from 'react';
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import './App.css';
+import ReactJSX, { ReactNoJSX } from './components/ReactJSX';
+import CompAndProps from './components/CompAndProps';
+import Button from './elements/Button';
+import TextInput from './elements/TextInput';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [text, setText] = useState('');
+  const [submittedText, setSubmittedText] = useState('');
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(text);
+    setSubmittedText(text);
+  };
+
+  const handleTextChange = (event) => {
+    setText(event.target.value);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="App">
+      <header className="App-header">
+        <ReactJSX />
+        <ReactNoJSX />
+        <div className="Components">
+          <CompAndProps/>
+        </div>
+          <form action="" onSubmit={handleSubmit}>
+            <TextInput border="red" placeholder="Input" value={text} onChange={handleTextChange} />
+            <Button background="blue" type='submit'>Output</Button>
+        </form>
+        {submittedText && (
+          <div>
+            <p>~{submittedText}~</p>
+          </div>
+        )}
+      </header>
+    </div>
+  );
 }
-
-export default App
+export default App;
